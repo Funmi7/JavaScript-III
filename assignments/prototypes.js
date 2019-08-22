@@ -57,20 +57,22 @@
     return `Hello my name is ${this.name} and I'm ${this.age} years old`;
   }
 
-  Person.prototype.eatEdibles = function () {
-    this.stomach.push('Eggs');
+  Person.prototype.eatEdibles = function (edibles) {
+    this.stomach.push(edibles);
+    return `I am eating ${this.stomach}`;
   }
 
   Person.prototype.poop = function () {
     this.stomach.length = 0;
+    return `I pooped ${this.stomach}`;
   }
   
   const funmi = new Person ('Funmi', 23);
 
   console.log(funmi.greet());
-  funmi.eatEdibles();
+  console.log(funmi.eatEdibles('rice'));
   console.log(funmi.stomach);
-  funmi.poop();
+  console.log(funmi.poop());
   console.log(funmi.stomach);
 
 
@@ -93,9 +95,10 @@
     this.hasCrashed = true;
   }
 
-  Car.prototype.drive = function () {
-    if (hasCrashed = false) {
-      this.odometer += 20;
+  Car.prototype.drive = function (isDriving, distance) {
+    if (isDriving === true) {
+      this.odometer += distance;
+      return `The ${this.modelName} ${this.modelMake} has been driving for ${this.odometer} miles`;
     } else {
     return this.crash();
     }
@@ -106,15 +109,14 @@
     return `I crashed at ${this.odometer} miles!`
   }
 
-  Car.prototype.repair = function () {
+  Car.prototype.repair = function (distance) {
     this.hasCrashed = false;
-    return this.odometer = 20;
+    return `I am repaired so I can continue driving from ${this.odometer} miles`;
   }
   const cars = new Car ('Toyota', 'Camry');
-  console.log(cars.modelName, cars.modelMake);
-  console.log(cars.hasCrashed);
-  cars.drive();
-  console.log(cars.odometer);
+
+  console.log(cars.drive(true, 10));
+  console.log(cars.drive(false, 10));
   console.log(cars.crash());
   console.log(cars.repair());
   /*
@@ -153,6 +155,100 @@ console.log(littleOne.play());
   complicated one with lots of state. Surprise us!
 
 */
+//First Constructor
+function Food(attributes) {
+  this.class = attributes.class;
+  this.name = attributes.name;
+  this.source = attributes.source;
+  this.calories = attributes.calories
+}
+
+Food.prototype.eat = function (destination) {
+  return `When you eat ${this.name} it goes to the ${destination} and ${this.name} can be got from ${this.source}`;
+}
+
+Food.prototype.amountOfCalories = function () {
+  return `The calories of ${this.name} eaten are ${this.calories * 500}`;
+}
+
+const rice = new Food({
+  class: 'carbohydrate',
+  name: 'Rice',
+  source: 'Plants',
+  calories: 50
+})
+
+console.log(rice.eat('stomach'));
+console.log(rice.amountOfCalories());
+
+// Second constructor
+function Dancer(attributes) {
+  this.name = attributes.name;
+  this.rank = attributes.isProfessional;
+  this.experience = attributes.experience;
+}
+
+Dancer.prototype.teachDance = function () {
+  if (this.rank) {
+    return `${this.name} Should teach dance`;
+  }
+  return `${this.name}Should not teach dance`;
+};
+
+const florence = new Dancer({
+  name: 'Florence',
+  isProfessional: true,
+  experience: 8
+}) 
+
+Dancer.prototype.leadDance = function () {
+  if (this.experience > 9) {
+    return `${this.name} should lead the dance`;
+  }
+  return `${this.name} should not lead dance`;
+}
+
+const amanda = new Dancer({
+  name: 'Amanda',
+  isProfessional: true,
+  experience: 7
+}) 
+
+console.log(florence.teachDance());
+console.log(amanda.leadDance());
+
+// Third Constructor
+function Quiz(data) {
+  this.firstContestant = data.firstContestant;
+  this.secondContestant = data.secondContestant;
+  this.thirdContestant = data.secondContestant;
+  this.firstContestantScore = 0;
+  this.secondContestantScore = 0;
+  this.thirdContestantScore = 0;
+}
+
+Quiz.prototype.start = function (winner) {
+  if (winner === 'firstContestant') {
+    this.firstContestantScore +=10;
+    return `The winner is ${this.firstContestant} with a score of ${this.firstContestantScore}`;
+  } else if (winner === 'secondContestant') {
+    this.secondContestantScore +=10;
+    return `The winner is ${this.secondContestant} with a score of ${this.secondContestantScore}`;
+  } else {
+    this.thirdContestantScore +=10;
+    return `The winner is ${this.thirdContestant} with a score of ${this.thirdContestantScore}`;
+  }
+}
+
+const theQuiz = new Quiz({
+  firstContestant: 'Funmi',
+  secondContestant: 'Dami',
+  thirdContestant: 'Rita' 
+});
+
+console.log(theQuiz.start('firstContestant'));
+console.log(theQuiz.start(`secondContestant`));
+console.log(theQuiz.start(`thirdContestant`));
 
 /*
 
