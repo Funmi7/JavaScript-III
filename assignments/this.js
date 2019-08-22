@@ -50,11 +50,14 @@ function myColor (color) {
     // Principle 4
    
     // code example for Explicit Binding
-    // function music(name, genre) {
-    //     return console.log(`The name of the song is ${name} and it is ${genre}`);
-    // }
-    // music.call('Shawn', 'Let me down', 'pop');
-    // music.apply('shawn', ['Lost without you', 'hiphop'])
+    function music(genre, artist) {
+        return console.log(`The name of the song is ${this.name}, it is a ${genre} song and sung by ${artist}`);
+    }
+    const name = {name: 'senorita'}
+    const name2 = {name: 'perfect'}
+
+    music.call(name, 'Pop', 'Shawn Mendes');
+    music.apply(name2, ['Pop', 'Ed Sheeran']);
     // var copyOfMusic = music.bind('shawn');
 
 

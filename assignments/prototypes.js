@@ -50,14 +50,28 @@
   function Person(name, age) {
     this.name = name;
     this.age = age;
+    this.stomach = [];
   }
 
   Person.prototype.greet = function () {
     return `Hello my name is ${this.name} and I'm ${this.age} years old`;
   }
 
+  Person.prototype.eatEdibles = function () {
+    this.stomach.push('Eggs');
+  }
+
+  Person.prototype.poop = function () {
+    this.stomach.length = 0;
+  }
+  
   const funmi = new Person ('Funmi', 23);
+
   console.log(funmi.greet());
+  funmi.eatEdibles();
+  console.log(funmi.stomach);
+  funmi.poop();
+  console.log(funmi.stomach);
 
 
  /* TASK 2
@@ -70,6 +84,41 @@
   - Give cars the ability to be repaired.
   - A repaired car can be driven again.
 
+  */
+
+  function Car(modelName, modelMake) {
+    this.modelName = modelName;
+    this.modelMake = modelMake;
+    this.odometer = 0;
+    this.hasCrashed = true;
+  }
+
+  Car.prototype.drive = function () {
+    if (hasCrashed = false) {
+      this.odometer += 20;
+    } else {
+    return this.crash();
+    }
+  }
+
+  Car.prototype.crash = function () {
+    this.hasCrashed = true;
+    return `I crashed at ${this.odometer} miles!`
+  }
+
+  Car.prototype.repair = function () {
+    this.hasCrashed = false;
+    return this.odometer = 20;
+  }
+  const cars = new Car ('Toyota', 'Camry');
+  console.log(cars.modelName, cars.modelMake);
+  console.log(cars.hasCrashed);
+  cars.drive();
+  console.log(cars.odometer);
+  console.log(cars.crash());
+  console.log(cars.repair());
+  /*
+
   TASK 3
 
   - Build a Baby constructor that subclasses the Person built earlier.
@@ -77,6 +126,26 @@
   - Babies should have the ability to play, which persons don't.
   - By playing, a string is returned with some text of your choosing.
 
+  */
+
+
+function Baby(name, age) {
+  Person.call(this, name, age);
+}
+
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function () {
+  return `My name is ${this.name}, I am ${this.age} years old and I love to play`;
+}
+
+const littleOne = new Baby('Dami', 1);
+
+console.log(littleOne.greet());
+console.log(littleOne.play());
+
+
+  /*
   TASK 4
 
   Use your imagination and come up with constructors that allow to build objects
